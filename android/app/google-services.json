@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "494943227729",
+    "project_id": "bunkmate-c8818",
+    "storage_bucket": "bunkmate-c8818.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494943227729:android:2b73abe9c51bd69fb38d70",
+        "android_client_info": {
+          "package_name": "dev.prateekthakur.bunkmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494943227729-a9nvf4o71mdg6hmhmblhg07qlmfa5g4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_q8QDdhEUvgkUqOYDmPeDBXzAiCw-xhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494943227729-a9nvf4o71mdg6hmhmblhg07qlmfa5g4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
