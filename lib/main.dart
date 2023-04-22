@@ -1,4 +1,6 @@
+import 'package:bunkmate/constants_methods.dart';
 import 'package:bunkmate/firebase_options.dart';
+import 'package:bunkmate/screens/homescreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -16,9 +18,14 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Bunkmate',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        canvasColor: Colors.white,
+        primarySwatch: primaryBlack
       ),
-      home: const Placeholder()
+      darkTheme: ThemeData(
+        primarySwatch: primaryBlack,
+        canvasColor: Colors.black87
+      ),
+      home: const HomeScreen()
     );
   }
 }
