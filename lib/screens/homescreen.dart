@@ -1,4 +1,3 @@
-import 'package:bunkmate/main.dart';
 import 'package:bunkmate/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 class HomeScreen extends StatefulWidget {
@@ -13,6 +12,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar("Bunkmate"),
+      body: const Center(
+        child: Text('Hello'),
+      ),
     );
   }
 }

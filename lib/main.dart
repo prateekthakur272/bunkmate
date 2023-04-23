@@ -23,7 +23,12 @@ class App extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         primarySwatch: primaryBlack,
-        canvasColor: Colors.black87
+        canvasColor: Colors.black87,
+        textTheme: const TextTheme(
+          bodySmall: TextStyle(color: Colors.white),
+          bodyMedium: TextStyle(color: Colors.white),
+          bodyLarge: TextStyle(color: Colors.white),
+        ),
       ),
       home: const HomeScreen()
     );
