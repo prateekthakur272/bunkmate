@@ -1,6 +1,6 @@
 import 'package:bunkmate/constants_methods.dart';
 import 'package:bunkmate/firebase_options.dart';
-import 'package:bunkmate/screens/homescreen.dart';
+import 'package:bunkmate/screens/loginscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -15,23 +15,40 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Bunkmate',
-      theme: ThemeData(
-        canvasColor: Colors.white,
-        primarySwatch: lightSkyBlue,
-      ),
-      darkTheme: ThemeData(
-        primarySwatch: lightSkyBlue,
-        canvasColor: Colors.black87,
-        textTheme: const TextTheme(
-          bodySmall: TextStyle(color: Colors.white),
-          bodyMedium: TextStyle(color: Colors.white),
-          bodyLarge: TextStyle(color: Colors.white),
+        debugShowCheckedModeBanner: false,
+        title: 'Bunkmate',
+        theme: ThemeData(
+          canvasColor: Colors.white,
+          primarySwatch: lightSkyBlue,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black87,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.all(16),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                )),
+          ),
         ),
-        cardColor: Colors.black
-      ),
-      home: const HomeScreen()
-    );
+        darkTheme: ThemeData(
+          primarySwatch: lightSkyBlue,
+          canvasColor: Colors.black87,
+          textTheme: const TextTheme(
+            bodySmall: TextStyle(color: Colors.white),
+            bodyMedium: TextStyle(color: Colors.white),
+            bodyLarge: TextStyle(color: Colors.white),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+                padding: const EdgeInsets.all(16),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                )),
+          ),
+          cardColor: Colors.black,
+        ),
+        home: const LoginScreen());
   }
 }
