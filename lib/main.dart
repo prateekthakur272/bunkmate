@@ -19,16 +19,17 @@ class App extends StatelessWidget {
       title: 'Bunkmate',
       theme: ThemeData(
         canvasColor: Colors.white,
-        primarySwatch: primaryBlack
+        primarySwatch: lightSkyBlue,
       ),
       darkTheme: ThemeData(
-        primarySwatch: primaryBlack,
+        primarySwatch: lightSkyBlue,
         canvasColor: Colors.black87,
         textTheme: const TextTheme(
           bodySmall: TextStyle(color: Colors.white),
           bodyMedium: TextStyle(color: Colors.white),
           bodyLarge: TextStyle(color: Colors.white),
         ),
+        cardColor: Colors.black
       ),
       home: const HomeScreen()
     );
