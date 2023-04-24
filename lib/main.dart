@@ -1,12 +1,12 @@
 import 'package:bunkmate/constants_methods.dart';
+import 'package:bunkmate/controller/login_home_controller.dart';
 import 'package:bunkmate/firebase_options.dart';
-import 'package:bunkmate/screens/loginscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const App());
 }
 
@@ -50,6 +50,6 @@ class App extends StatelessWidget {
           ),
           cardColor: Colors.black,
         ),
-        home: const LoginScreen());
+        home: const LoginHomeController());
   }
 }

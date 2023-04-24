@@ -1,9 +1,8 @@
+import 'package:bunkmate/auth/auth.dart';
 import 'package:bunkmate/constants_methods.dart';
-import 'package:bunkmate/screens/homescreen.dart';
 import 'package:bunkmate/widgets/start_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
@@ -47,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                       icon: FontAwesomeIcons.google,
                       label: 'Sign in with Google',
                       onClick: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomeScreen()));
+                        signInWithGoogle();
                       }
                   ),
                 ],
