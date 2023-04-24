@@ -17,21 +17,30 @@ class _HomeScreenState extends State<HomeScreen> {
         slivers: [
           SliverAppBar(
             elevation: 4,
-            leading: IconButton(icon: const Icon(FontAwesomeIcons.userTie),onPressed: (){}),
+            leading: IconButton(
+                icon: const Icon(FontAwesomeIcons.userTie), onPressed: () {}),
             pinned: true,
             expandedHeight: 200,
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
               title: const Text('Attandance'),
-              background: Image.asset('assets/banner.jpg',fit: BoxFit.cover,),
+              background: Image.asset(
+                'assets/banner.jpg',
+                fit: BoxFit.cover,
+              ),
               centerTitle: false,
             ),
           ),
           SliverToBoxAdapter(
-              child: ListView.builder(
-                primary: false,
-                shrinkWrap: true,
-                  itemBuilder: (context, index) => const Item(), itemCount: 10))
+              child: ListView.separated(
+            primary: false,
+            shrinkWrap: true,
+            itemBuilder: (context, index) => const Item(),
+            itemCount: 10,
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider();
+            },
+          ))
         ],
       ),
       floatingActionButton: FloatingActionButton(
