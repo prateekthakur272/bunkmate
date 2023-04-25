@@ -58,3 +58,9 @@ void showLoader(BuildContext context) {
     context: context,
     builder: (context) => LoadingAnimationWidget.threeArchedCircle(color: aquamarine, size: 56));
 }
+
+void showErrorSnackbar(BuildContext context,String content){
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(content))
+  );
+}

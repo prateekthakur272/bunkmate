@@ -1,9 +1,8 @@
 import 'package:bunkmate/screens/profile.dart';
+import 'package:bunkmate/widgets/add_item.dart';
 import 'package:bunkmate/widgets/item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../widgets/text_input.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool addEnabled = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,15 +27,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       MaterialPageRoute(builder: (context) => const Profile()));
                 }),
             pinned: true,
-            expandedHeight: 200,
+            expandedHeight: 240,
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
+              expandedTitleScale: 2,
               title: const Text('Attandance'),
-              background: Image.asset(
-                'assets/banner.jpg',
-                fit: BoxFit.cover,
+              background: Container(
+                width: double.maxFinite,
+                height: 200,
+                color: Theme.of(context).canvasColor,
+                child:Image.asset(
+                  'assets/banner.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
-              centerTitle: false,
+              centerTitle: true,
             ),
           ),
           SliverToBoxAdapter(
@@ -46,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: 'Object oriented design and analysis',
               percent: .75,
             ),
-            itemCount: 0,
+            itemCount: 6,
             separatorBuilder: (BuildContext context, int index) {
               return const Divider();
             },
@@ -58,52 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           showModalBottomSheet(
               context: context,
               builder: (context) {
-                return Container(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      const TextInput(
-                          hint: 'Title',
-                          inputType: TextInputType.text,
-                          icon: FontAwesomeIcons.book),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      const TextInput(
-                          hint: 'Total lectures',
-                          inputType: TextInputType.number,
-                          icon: Icons.numbers),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      const TextInput(
-                          hint: 'Attended lectures',
-                          inputType: TextInputType.number,
-                          icon: Icons.numbers),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Add item to track'))),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red.shade300),
-                            child: const Text('Cancel'),
-                          )),
-                    ],
-                  ),
-                );
+                return const AddItem();
               });
         },
         child: const Icon(Icons.add),

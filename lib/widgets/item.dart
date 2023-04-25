@@ -1,4 +1,4 @@
-import 'package:bunkmate/constants_methods.dart';
+import 'package:bunkmate/repository/database.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -42,7 +42,7 @@ class _ItemState extends State<Item> {
                       const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 barRadius: const Radius.circular(8),
-                progressColor: aquamarine,
+                progressColor: _percent>=.75?Colors.green.shade300:Colors.red.shade200,
               ),
           const SizedBox(
             height: 8,
@@ -54,10 +54,11 @@ class _ItemState extends State<Item> {
             children: [
               Expanded(
                 child: OutlinedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         _percent+=.01;
                       });
+                      print((await Database.items)?.keys.toString());
                     },
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.green.shade300,
@@ -79,6 +80,7 @@ class _ItemState extends State<Item> {
                      setState(() {
                        _percent-=.01;
                      });
+                     Database.addItem('Database', 2, 5);
                     },
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.red.shade300,
