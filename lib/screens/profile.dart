@@ -1,10 +1,7 @@
 import 'package:bunkmate/constants_methods.dart';
-import 'package:bunkmate/controller/login_home_controller.dart';
 import 'package:bunkmate/widgets/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

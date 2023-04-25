@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bunkmate/constants_methods.dart';
 import 'package:bunkmate/repository/database.dart';
 import 'package:bunkmate/widgets/text_input.dart';
@@ -89,6 +87,6 @@ class _AddItemState extends State<AddItem> {
                           )),
                     ],
                   ),
-                );;
+                );
   }
 }

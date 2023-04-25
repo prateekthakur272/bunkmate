@@ -58,7 +58,6 @@ class _ItemState extends State<Item> {
                       setState(() {
                         _percent+=.01;
                       });
-                      print((await Database.items)?.keys.toString());
                     },
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.green.shade300,
