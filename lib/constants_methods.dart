@@ -56,7 +56,7 @@ void showLoader(BuildContext context) {
   showDialog(
     barrierDismissible: false,
     context: context,
-    builder: (context) => LoadingAnimationWidget.threeArchedCircle(color: aquamarine, size: 56));
+    builder: (context) => loader);
 }
 
 void showErrorSnackbar(BuildContext context,String content){
@@ -64,3 +64,5 @@ void showErrorSnackbar(BuildContext context,String content){
     SnackBar(content: Text(content))
   );
 }
+
+final loader = LoadingAnimationWidget.threeArchedCircle(color: aquamarine, size: 56);

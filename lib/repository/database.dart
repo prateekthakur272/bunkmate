@@ -32,10 +32,17 @@ class Database {
         {};
   }
 
-  static double percentage(int total,int attended){
-    if(total==0){
+  static double percentage(int total, int attended) {
+    if (total == 0) {
       return 1;
     }
-    return attended/total;
+    return attended / total;
+  }
+
+  static Stream<DocumentSnapshot<Map<String, dynamic>>> get itemsStream {
+    return FirebaseFirestore.instance
+        .collection('attendance')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
   }
 }

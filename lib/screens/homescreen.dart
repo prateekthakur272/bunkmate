@@ -1,3 +1,4 @@
+import 'package:bunkmate/constants_methods.dart';
 import 'package:bunkmate/repository/database.dart';
 import 'package:bunkmate/screens/profile.dart';
 import 'package:bunkmate/widgets/add_item.dart';
@@ -13,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _data = Database.items;
   bool addEnabled = false;
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       MaterialPageRoute(builder: (context) => const Profile()));
                 }),
             pinned: true,
-            expandedHeight: 240,
+            expandedHeight: 200,
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 2,
@@ -38,35 +38,49 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: double.maxFinite,
                 height: 200,
                 color: Theme.of(context).canvasColor,
-                child: Image.asset(
-                  'assets/banner.jpg',
-                  fit: BoxFit.cover,
-                ),
+                // child: Image.asset(
+                //   'assets/banner.jpg',
+                //   fit: BoxFit.cover,
+                // ),
               ),
               centerTitle: true,
             ),
           ),
           SliverToBoxAdapter(
-              child: FutureBuilder(
-            future: _data,
+              child: StreamBuilder(
+            stream: Database.itemsStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                final entries = snapshot.data!.entries.toList();
+                final entries = snapshot.data!.data()?.entries.toList();
+                if (entries==null || entries.isEmpty) {
+                  return Center(
+                    child: Column(
+                      children: const [
+                        Text(
+                          'Nothing to track',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: aquamarine),
+                        ),
+                        Text('Click on + button to add item')
+                      ],
+                    ),
+                  );
+                }
                 entries.sort((a, b) =>
                     (a.key.toLowerCase().compareTo(b.key.toLowerCase())));
                 return ListView.separated(
-                  primary: false,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => Item(
-                    entry: entries[index],
-                  ),
-                  itemCount: snapshot.data!.length,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider();
-                  },
-                );
+                    primary: false,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => Item(
+                          entry: entries[index],
+                        ),
+                    itemCount: entries.length,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const Divider());
               }
-              return const CircularProgressIndicator();
+              return Center(child: loader);
             },
           ))
         ],
@@ -76,13 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
           showModalBottomSheet(
               context: context,
               builder: (context) {
-                return AddItem(
-                  onAdded: () {
-                    setState(() {
-                      _data = Database.items;
-                    });
-                  },
-                );
+                return const AddItem();
               });
         },
         child: const Icon(Icons.add),
