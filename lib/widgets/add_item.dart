@@ -9,7 +9,8 @@ final _total = TextEditingController();
 final _attended = TextEditingController();
 
 class AddItem extends StatefulWidget {
-  const AddItem({super.key});
+  final void Function() onAdded;
+  const AddItem({super.key, required this.onAdded});
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -66,6 +67,7 @@ class _AddItemState extends State<AddItem> {
                                   _title.clear();
                                   _total.clear();
                                   _attended.clear();
+                                  widget.onAdded();
                                 }).onError((error, stackTrace){
                                   Navigator.popUntil(context, (route) => route.isFirst);
                                   showErrorSnackbar(context, error.toString());

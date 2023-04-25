@@ -1,3 +1,4 @@
+import 'package:bunkmate/repository/database.dart';
 import 'package:bunkmate/screens/profile.dart';
 import 'package:bunkmate/widgets/add_item.dart';
 import 'package:bunkmate/widgets/item.dart';
@@ -12,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var _data = Database.items;
   bool addEnabled = false;
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: double.maxFinite,
                 height: 200,
                 color: Theme.of(context).canvasColor,
-                child:Image.asset(
+                child: Image.asset(
                   'assets/banner.jpg',
                   fit: BoxFit.cover,
                 ),
@@ -45,16 +47,26 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SliverToBoxAdapter(
-              child: ListView.separated(
-            primary: false,
-            shrinkWrap: true,
-            itemBuilder: (context, index) => const Item(
-              title: 'Object oriented design and analysis',
-              percent: .75,
-            ),
-            itemCount: 6,
-            separatorBuilder: (BuildContext context, int index) {
-              return const Divider();
+              child: FutureBuilder(
+            future: _data,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final entries = snapshot.data!.entries.toList();
+                entries.sort((a, b) =>
+                    (a.key.toLowerCase().compareTo(b.key.toLowerCase())));
+                return ListView.separated(
+                  primary: false,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => Item(
+                    entry: entries[index],
+                  ),
+                  itemCount: snapshot.data!.length,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider();
+                  },
+                );
+              }
+              return const CircularProgressIndicator();
             },
           ))
         ],
@@ -64,7 +76,13 @@ class _HomeScreenState extends State<HomeScreen> {
           showModalBottomSheet(
               context: context,
               builder: (context) {
-                return const AddItem();
+                return AddItem(
+                  onAdded: () {
+                    setState(() {
+                      _data = Database.items;
+                    });
+                  },
+                );
               });
         },
         child: const Icon(Icons.add),

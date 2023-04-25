@@ -31,4 +31,11 @@ class Database {
             .data() ??
         {};
   }
+
+  static double percentage(int total,int attended){
+    if(total==0){
+      return 1;
+    }
+    return attended/total;
+  }
 }
