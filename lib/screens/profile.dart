@@ -20,6 +20,7 @@ class Profile extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 48,
+                backgroundColor: aquamarine,
                 foregroundImage: NetworkImage(FirebaseAuth.instance.currentUser?.photoURL??''),
               ),
               const SizedBox(height: 16,),

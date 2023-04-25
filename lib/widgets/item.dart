@@ -1,8 +1,23 @@
+import 'package:bunkmate/constants_methods.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class Item extends StatelessWidget {
-  const Item({super.key});
+class Item extends StatefulWidget {
+  final String title;
+  final double percent;
+  const Item({super.key, required this.title, required this.percent});
 
+  @override
+  State<Item> createState() => _ItemState();
+}
+
+class _ItemState extends State<Item> {
+  late double _percent;
+  @override
+  void initState() {
+    _percent = widget.percent;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -10,18 +25,40 @@ class Item extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Title',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Text(
+            widget.title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 16,
+          ),
+          LinearPercentIndicator(
+                lineHeight: 28,
+                animation: true,
+                percent: _percent,
+                center: Text(
+                  "${(_percent*100).round()}%",
+                  style:
+                      const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                barRadius: const Radius.circular(8),
+                progressColor: aquamarine,
+              ),
+          const SizedBox(
+            height: 8,
+          ),
+          const SizedBox(
+            height: 8,
           ),
           Row(
             children: [
               Expanded(
                 child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _percent+=.01;
+                      });
+                    },
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.green.shade300,
                       side: BorderSide(color: Colors.green.shade300)
@@ -38,7 +75,11 @@ class Item extends StatelessWidget {
               const SizedBox(width:16,),
               Expanded(
                 child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                     setState(() {
+                       _percent-=.01;
+                     });
+                    },
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.red.shade300,
                       side: BorderSide(color: Colors.red.shade300)
