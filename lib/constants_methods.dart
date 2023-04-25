@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 const MaterialColor primaryBlack = MaterialColor(
   _blackPrimaryValue,
@@ -16,7 +17,6 @@ const MaterialColor primaryBlack = MaterialColor(
   },
 );
 const int _blackPrimaryValue = 0xFF000000;
-
 
 const MaterialColor aquamarine = MaterialColor(
   _aquamarine,
@@ -51,3 +51,10 @@ const MaterialColor lightSkyBlue = MaterialColor(
   },
 );
 const int _lightSkyBlue = 0xFF85C7F2;
+
+void showLoader(BuildContext context) {
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) => LoadingAnimationWidget.threeArchedCircle(color: aquamarine, size: 56));
+}

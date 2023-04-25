@@ -1,3 +1,4 @@
+import 'package:bunkmate/screens/profile.dart';
 import 'package:bunkmate/widgets/item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
             elevation: 4,
             leading: IconButton(
                 icon: const Icon(FontAwesomeIcons.userTie), onPressed: () {
-                  FirebaseAuth.instance.signOut();
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Profile()));
             }),
             pinned: true,
             expandedHeight: 200,

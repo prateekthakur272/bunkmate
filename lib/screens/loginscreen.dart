@@ -46,7 +46,12 @@ class LoginScreen extends StatelessWidget {
                       icon: FontAwesomeIcons.google,
                       label: 'Sign in with Google',
                       onClick: () {
-                        signInWithGoogle();
+                        showLoader(context);
+                        signInWithGoogle().then((value){
+                          Navigator.pop(context);
+                        }).onError((error, stackTrace){
+                          Navigator.pop(context);
+                        });
                       }
                   ),
                 ],
