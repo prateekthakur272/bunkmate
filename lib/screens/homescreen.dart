@@ -1,4 +1,5 @@
 import 'package:bunkmate/widgets/item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -18,7 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverAppBar(
             elevation: 4,
             leading: IconButton(
-                icon: const Icon(FontAwesomeIcons.userTie), onPressed: () {}),
+                icon: const Icon(FontAwesomeIcons.userTie), onPressed: () {
+                  FirebaseAuth.instance.signOut();
+            }),
             pinned: true,
             expandedHeight: 200,
             floating: true,
