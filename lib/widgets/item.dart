@@ -45,8 +45,9 @@ class Item extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Center(
                     child: LinearPercentIndicator(
+                      animation: true,
                       percent: percentage,
-                      progressColor: percentage > .75
+                      progressColor: percentage >= .75
                           ? Colors.green.shade300
                           : Colors.red.shade300,
                       barRadius: const Radius.circular(4),

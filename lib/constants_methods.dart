@@ -69,7 +69,7 @@ final loader =
 String getMessage(double percentage) {
   if (percentage > .9) {
     return 'You are doing great, keep it up';
-  } else if (percentage > .75) {
+  } else if (percentage >= .75) {
     return 'You have mantained good attendance';
   } else if (percentage >= .6) {
     return 'Your attandance is low, attend regular classes to manatain';
