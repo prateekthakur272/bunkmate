@@ -54,15 +54,26 @@ const int _lightSkyBlue = 0xFF85C7F2;
 
 void showLoader(BuildContext context) {
   showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (context) => loader);
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => loader);
 }
 
-void showErrorSnackbar(BuildContext context,String content){
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(content))
-  );
+void showErrorSnackbar(BuildContext context, String content) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(content)));
 }
 
-final loader = LoadingAnimationWidget.threeArchedCircle(color: aquamarine, size: 56);
+final loader =
+    LoadingAnimationWidget.threeArchedCircle(color: aquamarine, size: 56);
+
+String getMessage(double percentage) {
+  if (percentage > .9) {
+    return 'You are doing great, keep it up';
+  } else if (percentage > .75) {
+    return 'You have mantained good attendance';
+  } else if (percentage >= .6) {
+    return 'Your attandance is low, attend regular classes to manatain';
+  } else {
+    return 'Your attendance is too poor, please attend regular classes';
+  }
+}
