@@ -1,4 +1,3 @@
-import 'package:bunkmate/constants_methods.dart';
 import 'package:bunkmate/widgets/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,8 @@ class Profile extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 48,
-                backgroundColor: aquamarine,
+                backgroundColor: Colors.transparent,
+                backgroundImage: const AssetImage('assets/profile.png'),
                 foregroundImage: NetworkImage(FirebaseAuth.instance.currentUser?.photoURL??''),
               ),
               const SizedBox(height: 16,),
