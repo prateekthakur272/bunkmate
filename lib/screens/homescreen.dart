@@ -70,15 +70,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
                 entries.sort((a, b) =>
                     (a.key.toLowerCase().compareTo(b.key.toLowerCase())));
-                return ListView.separated(
+                return ListView.builder(
                     primary: false,
                     shrinkWrap: true,
                     itemBuilder: (context, index) => Item(
                           entry: entries[index],
                         ),
-                    itemCount: entries.length,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider());
+                    itemCount: entries.length);
               }
               return Center(child: loader);
             },

@@ -2,13 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Database {
+
+  static const attendanceCollection = 'attendance';
+  static final uid = FirebaseAuth.instance.currentUser!.uid;
+
   static Future<void> addItem(String title, int total, int attended) async {
     if (total < attended) {
       throw Exception('total cannot be less than attended');
     }
     return FirebaseFirestore.instance
-        .collection('attendance')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection(attendanceCollection)
+        .doc(uid)
         .update({
       title: {'total': total, 'attended': attended},
     }).onError((error, stackTrace) {
@@ -25,8 +29,8 @@ class Database {
 
   static Future<Map<String, dynamic>?> get items async {
     return (await FirebaseFirestore.instance
-                .collection('attendance')
-                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .collection(attendanceCollection)
+                .doc(uid)
                 .get())
             .data() ??
         {};
@@ -41,8 +45,8 @@ class Database {
 
   static Stream<DocumentSnapshot<Map<String, dynamic>>> get itemsStream {
     return FirebaseFirestore.instance
-        .collection('attendance')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection(attendanceCollection)
+        .doc(uid)
         .snapshots();
   }
 }
