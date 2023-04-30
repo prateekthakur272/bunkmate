@@ -1,9 +1,13 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Database {
 
   static const attendanceCollection = 'attendance';
+  static const totalKey = 'total';
+  static const attendedKey = 'attended';
   static final uid = FirebaseAuth.instance.currentUser!.uid;
 
   static Future<void> addItem(String title, int total, int attended) async {
@@ -14,20 +18,20 @@ class Database {
         .collection(attendanceCollection)
         .doc(uid)
         .update({
-      title: {'total': total, 'attended': attended},
+      title: {totalKey: total, attendedKey: attended},
     }).onError((error, stackTrace) {
       if ((error as FirebaseException).code == 'not-found') {
         FirebaseFirestore.instance
-            .collection('attendance')
+            .collection(attendanceCollection)
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .set({
-          title: {'total': total, 'attended': attended},
+          title: {totalKey: total, attendedKey: attended},
         });
       }
     });
   }
 
-  static Future<Map<String, dynamic>?> get items async {
+  static Future<Map<String, dynamic>> get items async {
     return (await FirebaseFirestore.instance
                 .collection(attendanceCollection)
                 .doc(uid)
@@ -48,5 +52,21 @@ class Database {
         .collection(attendanceCollection)
         .doc(uid)
         .snapshots();
+  }
+
+  static Future<void> addAttendance(String title,bool isAttended) async {
+    items.then((value){
+      final data= value[title];
+      int total = data[totalKey]??0;
+      int attended = data[attendedKey]??0;
+      addItem(title, total+1, isAttended?attended+1:attended);
+    });
+  }
+
+  static Future<void> deleteItem(String title) async {
+    items.then((value){
+      value.remove(title);
+      FirebaseFirestore.instance.collection(attendanceCollection).doc(uid).set(value);
+    });
   }
 }
