@@ -29,19 +29,14 @@ class Item extends StatelessWidget {
                 Database.deleteItem(entry.key);
               },
               icon: Icons.delete,
-              borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    bottomLeft: Radius.circular(16)),
-              backgroundColor: Colors.red.shade300,
+              label: 'Delete',
+              borderRadius: BorderRadius.circular(16),
             ),
             SlidableAction(
                 onPressed: (BuildContext context) {},
-                icon: Icons.close,
-                backgroundColor: Colors.grey,
-                foregroundColor: Colors.white,
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(16),
-                    bottomRight: Radius.circular(16))),
+                icon: Icons.cancel,
+                label: 'Cancel',
+                borderRadius: BorderRadius.circular(16)),
           ],
         ),
         child: Card(
