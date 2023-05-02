@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 2,
-              title: const Text('Attandance'),
+              title: const Text('Attendance'),
               background: Container(
                 width: double.maxFinite,
                 height: 200,
