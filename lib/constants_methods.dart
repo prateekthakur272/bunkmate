@@ -66,8 +66,8 @@ void showErrorSnackBar(BuildContext context, String content) {
   ));
 }
 
-void showInfoSnackBar(BuildContext context, String content) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(content)));
+void showInfoSnackBar(BuildContext context, String content,[Duration duration = const Duration(milliseconds: 1000)]) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(content),duration: duration));
 }
 
 final loader =

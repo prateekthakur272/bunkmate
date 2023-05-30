@@ -27,8 +27,9 @@ class Item extends StatelessWidget {
             SlidableAction(
               onPressed: (BuildContext context) {
                 Database.deleteItem(entry.key).then((value) => {
-                  showInfoSnackBar(context,"${entry.key} deleted from list")
-                });
+                      showInfoSnackBar(
+                          context, "${entry.key} deleted from list")
+                    });
               },
               icon: Icons.delete,
               label: 'Delete',
@@ -89,17 +90,17 @@ class Item extends StatelessWidget {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () async {
-                            Database.addAttendance(entry.key, true);
+                            Database.addAttendance(entry.key, true)
+                                .then((value) => {
+                                  showInfoSnackBar(context,'${entry.key} attended',const Duration(milliseconds: 500))
+                            });
                           },
                           style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.green.shade300,
                               side: BorderSide(color: Colors.green.shade300)),
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.done),
-                              Text('Attended')
-                            ],
+                            children: [Icon(Icons.done), Text('Attended')],
                           ),
                         ),
                       ),
@@ -109,7 +110,9 @@ class Item extends StatelessWidget {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () {
-                            Database.addAttendance(entry.key, false);
+                            Database.addAttendance(entry.key, false).then((value) => {
+                              showInfoSnackBar(context,'${entry.key} missed',const Duration(milliseconds: 500))
+                            });
                           },
                           style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.red.shade300,
