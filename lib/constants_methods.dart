@@ -59,7 +59,14 @@ void showLoader(BuildContext context) {
       builder: (context) => loader);
 }
 
-void showErrorSnackbar(BuildContext context, String content) {
+void showErrorSnackBar(BuildContext context, String content) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(content),
+    backgroundColor: Colors.red.shade300,
+  ));
+}
+
+void showInfoSnackBar(BuildContext context, String content) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(content)));
 }
 
@@ -72,7 +79,7 @@ String getMessage(double percentage) {
   } else if (percentage >= .75) {
     return 'You have mantained good attendance';
   } else if (percentage >= .6) {
-    return 'Your attandance is low, attend regular classes to manatain';
+    return 'Your attandance is low, attend regular classes to maintain';
   } else {
     return 'Your attendance is too poor, please attend regular classes';
   }
