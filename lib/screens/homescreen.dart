@@ -53,9 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
               if (snapshot.hasData) {
                 final entries = snapshot.data!.data()?.entries.toList();
                 if (entries==null || entries.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: Column(
-                      children: const [
+                      children: [
                         Text(
                           'Nothing to track',
                           style: TextStyle(
@@ -83,15 +83,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ))
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           showModalBottomSheet(
               context: context,
+              isScrollControlled: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16))
+              ),
               builder: (context) {
-                return const AddItem();
+                return const SingleChildScrollView(child: AddItem());
               });
         },
-        child: const Icon(Icons.add),
+        icon: const Icon(Icons.add),
+        label: const Text('Add item'),
       ),
     );
   }
