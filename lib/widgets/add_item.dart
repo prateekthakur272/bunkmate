@@ -69,13 +69,14 @@ class _AddItemState extends State<AddItem> {
                               .then((value) {
                             Navigator.popUntil(
                                 context, (route) => route.isFirst);
+                            showInfoSnackBar(context, "${_title.text} added to list");
                             _title.clear();
                             _total.clear();
                             _attended.clear();
                           }).onError((error, stackTrace) {
                             Navigator.popUntil(
                                 context, (route) => route.isFirst);
-                            showErrorSnackbar(context, error.toString());
+                            showErrorSnackBar(context, error.toString());
                           });
                         },
                   child: const Text('Add item to track'))),

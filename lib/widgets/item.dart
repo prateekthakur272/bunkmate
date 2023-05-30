@@ -26,7 +26,9 @@ class Item extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: (BuildContext context) {
-                Database.deleteItem(entry.key);
+                Database.deleteItem(entry.key).then((value) => {
+                  showInfoSnackBar(context,"${entry.key} deleted from list")
+                });
               },
               icon: Icons.delete,
               label: 'Delete',
@@ -92,11 +94,11 @@ class Item extends StatelessWidget {
                           style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.green.shade300,
                               side: BorderSide(color: Colors.green.shade300)),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Icon(Icons.done),
-                              Text('Attanded')
+                              Text('Attended')
                             ],
                           ),
                         ),
@@ -112,9 +114,9 @@ class Item extends StatelessWidget {
                           style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.red.shade300,
                               side: BorderSide(color: Colors.red.shade300)),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [Icon(Icons.close), Text('Missed')],
+                            children: [Icon(Icons.close), Text('Missed')],
                           ),
                         ),
                       )
