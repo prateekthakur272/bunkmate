@@ -11,7 +11,7 @@ class OverallAttendance extends StatelessWidget {
     return FutureBuilder(
         future: Database.items,
         builder: (context, snapshot) {
-          if (snapshot.hasData || snapshot.data!.isNotEmpty) {
+          if (snapshot.hasData) {
             int total = 0;
             int attended = 0;
             var items = snapshot.data!.entries.toList();
