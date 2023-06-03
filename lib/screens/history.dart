@@ -12,21 +12,31 @@ class History extends StatelessWidget {
         appBar: appBar('History', [
           IconButton(
             onPressed: () {
-              showDialog(context: context, builder: (context){
-                return AlertDialog(
-                  title: const Text('Delete history'),
-                  content: const Text('This will delete complete history, once deleted this action could not be undone'),
-                  actions: [
-                    TextButton(onPressed: (){
-                      Database.deleteAllHistory();
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                    }, child: const Text('Delete')),
-                    TextButton(onPressed: (){
-                      Navigator.pop(context);
-                    }, child: const Text('Cancel')),
-                  ],
-                );
-              });
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16))),
+                      title: const Text('Delete history'),
+                      content: const Text(
+                          'This will delete complete history, once deleted this action could not be undone'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Database.deleteAllHistory();
+                              Navigator.popUntil(
+                                  context, (route) => route.isFirst);
+                            },
+                            child: const Text('Delete')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel')),
+                      ],
+                    );
+                  });
             },
             icon: const Icon(Icons.delete),
             tooltip: 'Delete history',

@@ -50,15 +50,13 @@ class Profile extends StatelessWidget {
                             context: context,
                             builder: ((context) {
                               return AlertDialog(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(16))
+                                ),
                                 title: const Text('Sign out'),
                                 content: const Text(
                                     'Do you want to sign out bunkmate'),
                                 actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Cancel')),
                                   TextButton(
                                       onPressed: () {
                                         FirebaseAuth.instance.signOut().then(
@@ -66,7 +64,12 @@ class Profile extends StatelessWidget {
                                                 context,
                                                 (route) => route.isFirst));
                                       },
-                                      child: const Text('Sign out'))
+                                      child: const Text('Sign out')),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Cancel')),
                                 ],
                               );
                             }));
