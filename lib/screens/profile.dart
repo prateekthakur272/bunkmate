@@ -35,7 +35,7 @@ class Profile extends StatelessWidget {
                   style: const TextStyle(fontSize: 16),
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 24,
                 ),
                 const OverallAttendance(),
                 const Divider(),
@@ -46,9 +46,30 @@ class Profile extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        FirebaseAuth.instance.signOut().then((value) =>
-                            Navigator.popUntil(
-                                context, (route) => route.isFirst));
+                        showDialog(
+                            context: context,
+                            builder: ((context) {
+                              return AlertDialog(
+                                title: const Text('Sign out'),
+                                content: const Text(
+                                    'Do you want to sign out bunkmate'),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Cancel')),
+                                  TextButton(
+                                      onPressed: () {
+                                        FirebaseAuth.instance.signOut().then(
+                                            (value) => Navigator.popUntil(
+                                                context,
+                                                (route) => route.isFirst));
+                                      },
+                                      child: const Text('Sign out'))
+                                ],
+                              );
+                            }));
                       },
                       child: const Text('Sign out')),
                 )

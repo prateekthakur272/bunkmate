@@ -94,7 +94,7 @@ class OverallAttendance extends StatelessWidget {
               ),
             );
           }
-          return loader;
+          return const SizedBox.shrink();
         });
   }
 }
