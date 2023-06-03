@@ -83,4 +83,8 @@ class Database {
     },SetOptions(merge: true,));
   }
 
+  static Future<void> deleteAllHistory() async {
+    FirebaseFirestore.instance.collection(historyCollection).doc(uid).delete();
+  }
+
 }
