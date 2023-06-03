@@ -1,5 +1,6 @@
 import 'package:bunkmate/constants_methods.dart';
 import 'package:bunkmate/repository/database.dart';
+import 'package:bunkmate/screens/history.dart';
 import 'package:bunkmate/screens/profile.dart';
 import 'package:bunkmate/widgets/add_item.dart';
 import 'package:bunkmate/widgets/item.dart';
@@ -22,22 +23,20 @@ class _HomeScreenState extends State<HomeScreen> {
         slivers: [
           SliverAppBar(
             actions: [
-              PopupMenuButton(
-                itemBuilder: (context) {
-                return [
-                  const PopupMenuItem(child: Text('History'),),
-                  const PopupMenuItem(child: Text('Delete all'),),                  
-                ];
-              })
+              IconButton(onPressed: (){
+                Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const History()));
+              }, icon: const Icon(Icons.history))
             ],
             elevation: 4,
             leading: IconButton(
                 icon: CircleAvatar(
-                radius: 16,
-                backgroundColor: Colors.transparent,
-                backgroundImage: const AssetImage('assets/profile.png'),
-                foregroundImage: NetworkImage(FirebaseAuth.instance.currentUser?.photoURL??''),
-              ),
+                  radius: 16,
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: const AssetImage('assets/profile.png'),
+                  foregroundImage: NetworkImage(
+                      FirebaseAuth.instance.currentUser?.photoURL ?? ''),
+                ),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Profile()));
