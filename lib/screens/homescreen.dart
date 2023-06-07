@@ -1,10 +1,11 @@
 import 'package:bunkmate/constants_methods.dart';
 import 'package:bunkmate/repository/database.dart';
+import 'package:bunkmate/screens/history.dart';
 import 'package:bunkmate/screens/profile.dart';
 import 'package:bunkmate/widgets/add_item.dart';
 import 'package:bunkmate/widgets/item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,9 +22,21 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            actions: [
+              IconButton(onPressed: (){
+                Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const History()));
+              }, icon: const Icon(Icons.history))
+            ],
             elevation: 4,
             leading: IconButton(
-                icon: const Icon(FontAwesomeIcons.userTie),
+                icon: CircleAvatar(
+                  radius: 16,
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: const AssetImage('assets/profile.png'),
+                  foregroundImage: NetworkImage(
+                      FirebaseAuth.instance.currentUser?.photoURL ?? ''),
+                ),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Profile()));
@@ -52,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final entries = snapshot.data!.data()?.entries.toList();
-                if (entries==null || entries.isEmpty) {
+                if (entries == null || entries.isEmpty) {
                   return const Center(
                     child: Column(
                       children: [
@@ -89,8 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
               context: context,
               isScrollControlled: true,
               shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(16))
-              ),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(16))),
               builder: (context) {
                 return const SingleChildScrollView(child: AddItem());
               });

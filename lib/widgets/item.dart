@@ -92,6 +92,7 @@ class Item extends StatelessWidget {
                           onPressed: () async {
                             Database.addAttendance(entry.key, true)
                                 .then((value) => {
+                                  Database.addHistory(entry.key,true),
                                   showInfoSnackBar(context,'${entry.key} attended',const Duration(milliseconds: 500))
                             });
                           },
@@ -111,6 +112,7 @@ class Item extends StatelessWidget {
                         child: OutlinedButton(
                           onPressed: () {
                             Database.addAttendance(entry.key, false).then((value) => {
+                              Database.addHistory(entry.key,false),
                               showInfoSnackBar(context,'${entry.key} missed',const Duration(milliseconds: 500))
                             });
                           },

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Database {
 
   static const attendanceCollection = 'attendance';
+  static const historyCollection = 'history';
   static const totalKey = 'total';
   static const attendedKey = 'attended';
   static final uid = FirebaseAuth.instance.currentUser!.uid;
@@ -67,4 +68,23 @@ class Database {
       FirebaseFirestore.instance.collection(attendanceCollection).doc(uid).set(value);
     });
   }
+
+
+  static Future<DocumentSnapshot<Map<String, dynamic>>> getHistory() async {
+    return await(FirebaseFirestore.instance.collection(historyCollection).doc(uid).get());
+  }
+
+  static Future<void> addHistory(String title,bool attended) async {
+    FirebaseFirestore.instance.collection(historyCollection).doc(uid).set({
+      '${DateTime.now().toLocal()}': {
+        'title':title,
+        'attended':attended
+      }
+    },SetOptions(merge: true,));
+  }
+
+  static Future<void> deleteAllHistory() async {
+    FirebaseFirestore.instance.collection(historyCollection).doc(uid).delete();
+  }
+
 }
