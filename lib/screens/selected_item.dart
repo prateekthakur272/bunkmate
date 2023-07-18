@@ -61,12 +61,37 @@ class _SelectedItemState extends State<SelectedItem> {
                               'Overall attandance is $attended out of $total',
                               style: const TextStyle(fontSize: 16),
                             ),
-                            Text(getMessage(percentage),style: const TextStyle(color: Colors.grey),textAlign: TextAlign.center,)
+                            Text(
+                              getMessage(percentage),
+                              style: const TextStyle(color: Colors.grey),
+                              textAlign: TextAlign.center,
+                            )
                           ],
                         ),
                       ),
                     ),
-                    const Divider(color: Colors.grey,)
+                    // const Divider(
+                    //   color: Colors.grey,
+                    // ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(16)),
+                        height: 200,
+                        child: FutureBuilder(
+                            future: Database.getHistoryByTitle(widget.title),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData && snapshot.data != null) {
+                                return Text(snapshot.data.toString());
+                              } else if (snapshot.data == null) {
+                                return const Text('No History');
+                              }
+                              return loader;
+                            }))
                   ],
                 ),
                 // Positioned(
