@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Database {
-
   static const attendanceCollection = 'attendance';
   static const historyCollection = 'history';
   static const totalKey = 'total';
@@ -53,38 +52,58 @@ class Database {
         .snapshots();
   }
 
-  static Future<void> addAttendance(String title,bool isAttended) async {
-    items.then((value){
-      final data= value[title];
-      int total = data[totalKey]??0;
-      int attended = data[attendedKey]??0;
-      addItem(title, total+1, isAttended?attended+1:attended);
+  static Future<void> addAttendance(String title, bool isAttended) async {
+    items.then((value) {
+      final data = value[title];
+      int total = data[totalKey] ?? 0;
+      int attended = data[attendedKey] ?? 0;
+      addItem(title, total + 1, isAttended ? attended + 1 : attended);
     });
   }
 
   static Future<void> deleteItem(String title) async {
-    items.then((value){
+    items.then((value) {
       value.remove(title);
-      FirebaseFirestore.instance.collection(attendanceCollection).doc(uid).set(value);
+      FirebaseFirestore.instance
+          .collection(attendanceCollection)
+          .doc(uid)
+          .set(value);
     });
   }
 
-
   static Future<DocumentSnapshot<Map<String, dynamic>>> getHistory() async {
-    return await(FirebaseFirestore.instance.collection(historyCollection).doc(uid).get());
+    return await (FirebaseFirestore.instance
+        .collection(historyCollection)
+        .doc(uid)
+        .get());
   }
 
-  static Future<void> addHistory(String title,bool attended) async {
-    FirebaseFirestore.instance.collection(historyCollection).doc(uid).set({
-      '${DateTime.now().toLocal()}': {
-        'title':title,
-        'attended':attended
-      }
-    },SetOptions(merge: true,));
+  static Future<void> addHistory(String title, bool attended) async {
+    FirebaseFirestore.instance.collection(historyCollection).doc(uid).set(
+        {
+          '${DateTime.now().toLocal()}': {'title': title, 'attended': attended}
+        },
+        SetOptions(
+          merge: true,
+        ));
   }
 
   static Future<void> deleteAllHistory() async {
     FirebaseFirestore.instance.collection(historyCollection).doc(uid).delete();
   }
 
+  static Future<Map<String, dynamic>> getHistoryByTitle(String title) async {
+    var all = (await FirebaseFirestore.instance
+            .collection(historyCollection)
+            .doc(uid)
+            .get())
+        .data();
+    Map<String, dynamic> histoy = {};
+    all!.forEach((key, value) {
+      if (value['title'] == title) {
+        histoy[key] = value;
+      }
+    });
+    return histoy;
+  }
 }
