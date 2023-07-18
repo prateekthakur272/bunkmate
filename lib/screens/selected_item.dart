@@ -16,7 +16,13 @@ class _SelectedItemState extends State<SelectedItem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(widget.title),
+      appBar: appBar(widget.title, [
+        IconButton(
+            onPressed: () {
+              showHistory(context, widget.title);
+            },
+            icon: const Icon(Icons.history))
+      ]),
       body: Center(
           child: StreamBuilder(
         stream: Database.itemsStream,
@@ -73,39 +79,32 @@ class _SelectedItemState extends State<SelectedItem> {
                     // const Divider(
                     //   color: Colors.grey,
                     // ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(16)),
-                        height: 200,
-                        child: FutureBuilder(
-                            future: Database.getHistoryByTitle(widget.title),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData && snapshot.data != null) {
-                                return Text(snapshot.data.toString());
-                              } else if (snapshot.data == null) {
-                                return const Text('No History');
-                              }
-                              return loader;
-                            }))
                   ],
                 ),
                 // Positioned(
                 //   bottom: 24,
                 //   left: 0,
                 //   right: 0,
-                //   child: Padding(
+                //   child: Container(
                 //     padding: const EdgeInsets.all(24),
                 //     child: Row(
                 //       mainAxisSize: MainAxisSize.min,
                 //       children: [
-                //         Expanded(child: StartIconButton(icon: Icons.close, label: 'Missed', onClick: (){}),),
-                //         const SizedBox(width: 16,),
-                //         Expanded(child: StartIconButton(icon: Icons.done, label: 'Attended', onClick: (){}),),
+                //         Expanded(
+                //           child: StartIconButton(
+                //               icon: Icons.close,
+                //               label: 'Missed',
+                //               onClick: () {}),
+                //         ),
+                //         const SizedBox(
+                //           width: 16,
+                //         ),
+                //         Expanded(
+                //           child: StartIconButton(
+                //               icon: Icons.done,
+                //               label: 'Attended',
+                //               onClick: () {}),
+                //         ),
                 //       ],
                 //     ),
                 //   ),
@@ -116,6 +115,48 @@ class _SelectedItemState extends State<SelectedItem> {
           return loader;
         },
       )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        isExtended: true,
+        child: const Icon(Icons.edit),
+      ),
     );
   }
+}
+
+void showHistory(BuildContext context, String title) {
+  showModalBottomSheet(
+      useSafeArea: true,
+      enableDrag: true,
+      showDragHandle: true,
+      isScrollControlled: true,
+      isDismissible: true,
+      elevation: 8,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+      context: context,
+      builder: (context) => FutureBuilder(
+          future: Database.getHistoryByTitle(title),
+          builder: (context, snapshot) {
+            if (snapshot.hasData && snapshot.data != null) {
+              var history = snapshot.data?.entries.toList();
+              history?.sort((a, b) => b.key.compareTo(a.key));
+              return Scrollbar(
+                child: ListView.builder(
+                  itemCount: history?.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(history?[index].key ?? ''),
+                      subtitle: Text(history?[index].value['attended']
+                          ? 'Attended'
+                          : 'Not attended'),
+                    );
+                  },
+                ),
+              );
+            } else if (!snapshot.hasData) {
+              return const Text('No History');
+            }
+            return loader;
+          }));
 }
