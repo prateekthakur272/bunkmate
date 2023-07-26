@@ -2,6 +2,7 @@ import 'package:bunkmate/constants_methods.dart';
 import 'package:bunkmate/repository/database.dart';
 import 'package:bunkmate/screens/history.dart';
 import 'package:bunkmate/screens/profile.dart';
+import 'package:bunkmate/screens/time_table.dart';
 import 'package:bunkmate/widgets/add_item.dart';
 import 'package:bunkmate/widgets/item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,6 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
+                              builder: (context) => const TimeTable()));
+                    },
+                    icon: const Icon(Icons.calendar_month)),
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
                               builder: (context) => const History()));
                     },
                     icon: const Icon(Icons.history))
@@ -71,10 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: double.maxFinite,
                   height: 200,
                   color: Theme.of(context).canvasColor,
-                  // child: Image.asset(
-                  //   'assets/banner.jpg',
-                  //   fit: BoxFit.cover,
-                  // ),
+                  child: Image.asset(
+                    'assets/banner.jpg',
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 centerTitle: true,
               ),
@@ -121,6 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ? FloatingActionButton.extended(
               onPressed: () {
                 showModalBottomSheet(
+                    showDragHandle: true,
+                    enableDrag: true,
+                    useSafeArea: true,
                     context: context,
                     isScrollControlled: true,
                     shape: const RoundedRectangleBorder(
