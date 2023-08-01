@@ -43,6 +43,10 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   percent_indicator: ^4.2.3
   flutter_slidable: ^3.0.0
+  path: ^1.8.3
+  flutter_speed_dial: ^7.0.0
+  firebase_storage: ^11.2.5
+  file_picker: ^5.3.3
 
 dev_dependencies:
   flutter_test:
